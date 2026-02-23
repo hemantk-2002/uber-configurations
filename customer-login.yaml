@@ -2,15 +2,17 @@ spring:
   application:
     name: customer-login
 
-  jpa:
-    database: mysql
-    hibernate:
-      ddl-auto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/customerdb
+    url: jdbc:mysql://localhost:3306/customerdb?useSSL=false&serverTimezone=UTC
     username: root
     password: root@1234
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 management:
   tracing:
@@ -18,15 +20,14 @@ management:
       probability: 1.0
 
 server:
-    port: 8081
+  port: 8081
+
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka/
 
 logging:
   level:
-    org.hibernate.sql: debug
+    org.hibernate.SQL: debug
     org.hibernate.tool.schema: debug
-
-
